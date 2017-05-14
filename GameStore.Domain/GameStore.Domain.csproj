@@ -51,14 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ICategoryRepository.cs" />
     <Compile Include="Abstract\IGameRepository.cs" />
     <Compile Include="Abstract\IOrderProcessor.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
+    <Compile Include="Concrete\EFCategoryRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFUserRepository.cs" />
     <Compile Include="Concrete\EFGameRepository.cs" />
     <Compile Include="Concrete\EmailOrderProcessor.cs" />
     <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Entities\User.cs" />

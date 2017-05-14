@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace GameStore.WebUI.Controllers
 {
-    [Authorize]
     public class AdminController : Controller
     {
         IGameRepository repository;

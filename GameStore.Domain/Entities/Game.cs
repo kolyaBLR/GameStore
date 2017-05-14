@@ -18,7 +18,7 @@ namespace GameStore.Domain.Entities
         public int GameId { get; set; }
 
         [Display(Name = "Название")]
-        [MaxLength(64)]
+        [MaxLength(64, ErrorMessage = "Слишком длинное название")]
         [Column("name")]
         [Required(ErrorMessage = "Пожалуйста, введите название для игры")]
         public string Name { get; set; }
@@ -31,7 +31,7 @@ namespace GameStore.Domain.Entities
         public string Description { get; set; }
 
         [Display(Name = "Категория")]
-        [MaxLength(64)]
+        [MaxLength(64, ErrorMessage = "Слишком длинное название категории")]
         [Column("category")]
         [Required(ErrorMessage = "Пожалуйста, укажите категорию для игры")]
         public string Category { get; set; }

@@ -7,7 +7,6 @@ using System.Web.Mvc;
 
 namespace GameStore.WebUI.Controllers
 {
-    [Authorize]
     public class NavController : Controller
     {
         private IGameRepository repository;

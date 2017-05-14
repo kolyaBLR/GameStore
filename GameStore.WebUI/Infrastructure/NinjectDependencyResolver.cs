@@ -36,9 +36,12 @@ namespace GameStore.WebUI.Infrastructure
         {
             kernel.Bind<IGameRepository>().To<EFGameRepository>();
             kernel.Bind<IUserRepository>().To<EFUserRepository>();
-            EmailSettings emailSettings = new EmailSettings();
-            emailSettings.WriteAsFile = bool.Parse(ConfigurationManager
-                .AppSettings["Email.WriteAsFile"] ?? "false");
+            kernel.Bind<ICategoryRepository>().To<EFCategoryRepository>();
+            EmailSettings emailSettings = new EmailSettings()
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager
+                .AppSettings["Email.WriteAsFile"] ?? "false")
+            };
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
                 .WithConstructorArgument("settings", emailSettings);
         }

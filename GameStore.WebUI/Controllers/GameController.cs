@@ -11,7 +11,6 @@ using System.Web.Mvc;
 
 namespace GameStore.WebUI.Controllers
 {
-    [Authorize]
     public class GameController : Controller
     {
         private IGameRepository repository;
