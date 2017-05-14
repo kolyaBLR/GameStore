@@ -22,25 +22,24 @@ namespace GameStore.WebUI.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            GamesListViewModel model = new GamesListViewModel();
+            GamesListViewModel model = new GamesListViewModel()
+            {
+                Games = repository.Games
+                .OrderBy(game => game.GameId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize),
 
-            model.Games = repository.Games
-                 .OrderBy(game => game.GameId)
-                 .Skip((page - 1) * pageSize)
-                 .Take(pageSize);
-
-            PagingInfo pagination = new PagingInfo();
-            pagination.CurrentPage = page;
-            pagination.ItemsPerPage = pageSize;
-            pagination.TotalItems = repository.Games.Count();
-
-            model.PagingInfo = pagination;
-
-            if (page <= 0 || page > pagination.TotalPages)
+                PagingInfo = new PagingInfo()
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = repository.Games.Count()
+                }
+            };
+            if (page != 1 && (page <= 0 || page > model.PagingInfo.TotalPages))
             {
                 return HttpNotFound();
             }
-
             return View(model);
         }
 
