@@ -15,7 +15,7 @@
                 <th class="text-right">ID</th>
                 <th>Название</th>
                 <th class="text-right">Цена</th>
-                <th class="text-center">Действия</th>
+                <th class="text-center">Действие</th>
             </tr>
             @foreach (var item in Model.Games)
             {
@@ -41,8 +41,8 @@
             new { @class = "btn btn-default" })
     </div>
     <div class="btn-group pull-right">
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
-        new { page = x }))
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("index",
+        new { page = x, category = Model.CurrentCategory }))
     </div>
 
 </div>

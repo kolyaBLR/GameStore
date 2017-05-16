@@ -176,6 +176,7 @@
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\CartIndexViewModel.cs" />
+    <Compile Include="Models\CreateGameViewModel.cs" />
     <Compile Include="Models\GamesListViewModel.cs" />
     <Compile Include="Models\Authentication\LoginModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />

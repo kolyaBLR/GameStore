@@ -1,4 +1,4 @@
-﻿@model GameStore.Domain.Entities.Game
+﻿@model GameStore.WebUI.Models.CreateGameViewModel
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -6,14 +6,15 @@
 
 <div class="panel">
     <div class="panel-heading">
-        <h3>@ViewBag.Title @Model.Name</h3>
+        <h3>@ViewBag.Title @Model.Game.Name</h3>
     </div>
 
     @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="panel-body">
-            @Html.HiddenFor(m => m.GameId)
-            @foreach (var property in ViewData.ModelMetadata.Properties)
+            @Html.HiddenFor(m => m.Game.GameId)
+            @foreach (var property in 
+                .ModelMetadata.Properties)
             {
                 switch (property.PropertyName)
                 {
@@ -52,7 +53,7 @@
                     </a>
                     <span class='label label-info' id="upload-file-info"></span>
                 </div>
-                @if (Model.ImageData == null)
+                @if (Model.Game.ImageData == null)
                 {
                     <div class="form-control-static">Нет картинки</div>
                 }
@@ -60,7 +61,7 @@
                 {
                     <img class="img-thumbnail" width="150" height="150"
                          src="@Url.Action("GetImage", "Game",
-                        new { Model.GameId })" />
+                        new { Model.Game.GameId })" />
                 }
             </div>
         </div>

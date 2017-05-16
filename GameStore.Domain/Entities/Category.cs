@@ -17,7 +17,7 @@ namespace GameStore.Domain.Entities
         [Column("category_id")]
         public int CategoryId { get; set; }
 
-        [Display(Name = "Категория:")]
+        [Display(Name = "Категория")]
         [Required(ErrorMessage = "Пожалуйста, введите название категории")]
         [MaxLength(64, ErrorMessage = "Слишком длинное название категории")]
         [Column("name")]

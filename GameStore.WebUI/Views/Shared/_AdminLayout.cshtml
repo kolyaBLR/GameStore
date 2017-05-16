@@ -20,7 +20,10 @@
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
-        @RenderBody()
-    </div>
+        <div class="col-md-2"></div>
+        <div id="content" class="col-md-6">
+            @RenderBody()
+        </div>
+        <div class="col-md-2"></div>
 </body>
 </html>
