@@ -15,6 +15,16 @@ namespace GameStore.WebUI
 
             routes.MapRoute(
                 name: null,
+                url: "category/edit/{gameId}",
+                defaults: new
+                {
+                    controller = "admin",
+                    action = "edit"
+                }
+            );
+
+            routes.MapRoute(
+                name: null,
                 url: "category/edit/{categoryId}",
                 defaults: new
                 {
