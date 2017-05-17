@@ -44,43 +44,36 @@ namespace GameStore.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult Edit(int gameId)
+        public ActionResult Edit(int gameId = 0)
         {
             ViewBag.Title = "Редактирование игры";
-            CreateGameViewModel model = new CreateGameViewModel()
-            {
-                Game = gameRepository.Games.FirstOrDefault(g => g.GameId == gameId),
-                Category = categoryRepository.Category                
-            };
-
-            if (model.Game == null)
+            Game game = gameRepository.Games.FirstOrDefault(g => g.GameId == gameId);
+            if (gameId == 0 || game == null)
             {
                 return HttpNotFound();
             }
-
-            return View(model);
+            return View(game);
         }
 
         // Перегруженная версия Edit() для сохранения изменений
         [HttpPost]
-        public ActionResult Edit(CreateGameViewModel model, HttpPostedFileBase image = null)
+        public ActionResult Edit(Game game)
         {
+            if (game == null)
+            {
+                return HttpNotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                if (image != null)
-                {
-                    model.Game.ImageMimeType = image.ContentType;
-                    model.Game.ImageData = new byte[image.ContentLength];
-                    image.InputStream.Read(model.Game.ImageData, 0, image.ContentLength);
-                }
-                gameRepository.SaveGame(model.Game);
-                TempData["message"] = string.Format("Изменения в игре \"{0}\" были сохранены", model.Game.Name);
+                gameRepository.SaveGame(game);
+                TempData["message"] = string.Format("Изменения в игре \"{0}\" были сохранены", game.Name);
                 return RedirectToAction("Index");
             }
             else
             {
                 // Что-то не так со значениями данных
-                return View(model);
+                return View(game);
             }
         }
 
