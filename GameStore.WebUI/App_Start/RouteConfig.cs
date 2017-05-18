@@ -15,6 +15,24 @@ namespace GameStore.WebUI
 
             routes.MapRoute(
                 name: null,
+                url: "{categoryId}",
+                defaults: new
+                {
+                    controller = "Game",
+                    action = "List",
+                    page = 1
+                }
+            );
+
+            routes.MapRoute(
+                name: null,
+                url: "{categoryId}/page/{page}",
+                defaults: new { controller = "Game", action = "List" },
+                constraints: new { page = @"\d+" }
+            );
+
+            routes.MapRoute(
+                name: null,
                 url: "category/edit/{gameId}",
                 defaults: new
                 {
@@ -54,24 +72,6 @@ namespace GameStore.WebUI
                     action = "List",
                     category = (string)null
                 },
-                constraints: new { page = @"\d+" }
-            );
-
-            routes.MapRoute(
-                name: null,
-                url: "{category}",
-                defaults: new
-                {
-                    controller = "Game",
-                    action = "List",
-                    page = 1
-                }
-            );
-
-            routes.MapRoute(
-                name: null,
-                url: "{category}/page/{page}",
-                defaults: new { controller = "Game", action = "List" },
                 constraints: new { page = @"\d+" }
             );
 

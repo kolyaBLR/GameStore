@@ -30,13 +30,10 @@ namespace GameStore.Domain.Entities
         [Required(ErrorMessage = "Пожалуйста, введите описание для игры")]
         public string Description { get; set; }
 
-        //public int CategoryId { get; set; }
-
         [Display(Name = "Категория")]
-        [MaxLength(64, ErrorMessage = "Слишком длинное название категории")]
-        [Column("category")]
+        [Column("category_id")]
         [Required(ErrorMessage = "Пожалуйста, укажите категорию для игры")]
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
 
         [Display(Name = "Цена (руб)")]
         [Required]

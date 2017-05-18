@@ -1,19 +1,27 @@
-﻿@model IEnumerable<string>
+﻿@model IEnumerable<GameStore.Domain.Entities.Category>
 
-@Html.ActionLink("Домой", "List", "Game", null,
-    new { @class = "btn btn-block btn-default btn-lg" })
-
-@foreach (var link in Model)
-{
-    @Html.RouteLink(link, new
+@Html.RouteLink("Домой", new
 {
     controller = "Game",
     action = "List",
-    category = link,
+    categoryId = 0,
     page = 1
 }, new
 {
     @class = "btn btn-block btn-default btn-lg"
-            + (link == ViewBag.SelectedCategory ? " btn-primary" : "")
+})
+
+@foreach (var link in Model)
+{
+    @Html.RouteLink(link.Name.ToString(), new
+{
+    controller = "Game",
+    action = "List",
+    categoryId = link.CategoryId,
+    page = 1
+}, new
+{
+    @class = "btn btn-block btn-default btn-lg"
+            + (link.Name == ViewBag.SelectedCategory ? " btn-primary" : "")
 })
 }

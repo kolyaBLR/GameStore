@@ -47,17 +47,20 @@ namespace GameStore.WebUI.Controllers
         public ActionResult Edit(int gameId = 0)
         {
             ViewBag.Title = "Редактирование игры";
-            Game game = gameRepository.Games.FirstOrDefault(g => g.GameId == gameId);
-            if (gameId == 0 || game == null)
+            CreateGameViewModel model = new CreateGameViewModel(categoryRepository.Category, gameId)
+            {
+                Game = gameRepository.Games.FirstOrDefault(g => g.GameId == gameId)
+            };
+            if (gameId == 0 || model.Game == null)
             {
                 return HttpNotFound();
             }
-            return View(game);
+            return View(model);
         }
 
         // Перегруженная версия Edit() для сохранения изменений
         [HttpPost]
-        public ActionResult Edit(Game game)
+        public ActionResult Edit(string category, Game game = null)
         {
             if (game == null)
             {
@@ -66,21 +69,28 @@ namespace GameStore.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
+                game.CategoryId = categoryRepository.Category.FirstOrDefault(c => c.Name == category).CategoryId;
                 gameRepository.SaveGame(game);
                 TempData["message"] = string.Format("Изменения в игре \"{0}\" были сохранены", game.Name);
                 return RedirectToAction("Index");
             }
             else
             {
-                // Что-то не так со значениями данных
-                return View(game);
+                return View(new CreateGameViewModel(categoryRepository.Category)
+                {
+                    Game = game
+                });
             }
         }
 
         public ViewResult Create()
         {
             ViewBag.Title = "Создание игры";
-            return View("Edit", new Game());
+            var model = new CreateGameViewModel(categoryRepository.Category)
+            {
+                Game = new Game(),
+            };
+            return View("Edit", model);
         }
 
         [HttpPost]

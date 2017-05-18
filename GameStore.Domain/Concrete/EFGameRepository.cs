@@ -29,7 +29,7 @@ namespace GameStore.Domain.Concrete
                     dbEntry.Name = game.Name;
                     dbEntry.Description = game.Description;
                     dbEntry.Price = game.Price;
-                    dbEntry.Category = game.Category;
+                    dbEntry.CategoryId = game.CategoryId;
                 }
             }
             context.SaveChanges();

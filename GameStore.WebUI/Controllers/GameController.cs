@@ -13,20 +13,22 @@ namespace GameStore.WebUI.Controllers
 {
     public class GameController : Controller
     {
-        private IGameRepository repository;
+        private IGameRepository repositoryGame;
+        private ICategoryRepository repositoryCategory;
         private int pageSize = 5;
 
-        public GameController(IGameRepository repository)
+        public GameController(IGameRepository repositoryGame, ICategoryRepository repositoryCategory)
         {
-            this.repository = repository;
+            this.repositoryGame = repositoryGame;
+            this.repositoryCategory = repositoryCategory;
         }
 
-        public ActionResult List(string category, int page = 1)
+        public ActionResult List(int categoryId = 0, int page = 1)
         {
             GamesListViewModel model = new GamesListViewModel()
             {
-                Games = repository.Games
-                .Where(p => category == null || p.Category == category)
+                Games = repositoryGame.Games
+                .Where(p => categoryId == 0 || p.CategoryId == categoryId)
                 .OrderBy(game => game.GameId)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize),
@@ -34,9 +36,9 @@ namespace GameStore.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = category == null ?
-                    repository.Games.Count() :
-                    repository.Games.Where(game => game.Category == category).Count()
+                    TotalItems = categoryId == 0 ?
+                    repositoryGame.Games.Count() :
+                    repositoryGame.Games.Where(game => game.CategoryId == categoryId).Count()
                 }
             };
 
